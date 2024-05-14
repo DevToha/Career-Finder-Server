@@ -110,6 +110,8 @@ async function run() {
             const result = await cursor.toArray()
             res.send(result)
         })
+        
+        // applied job by login email
 
         app.get("/appliedJob/:LoginEmail", async (req, res) => {
             console.log(req.params.LoginEmail)
