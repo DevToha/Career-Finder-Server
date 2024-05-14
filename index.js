@@ -40,10 +40,19 @@ async function run() {
         })
 
         app.get('/job', async (req, res) => {
-            const cursor = jobCollection.find()
-            const result = await cursor.toArray()
+            const page = parseInt(req.query.page)
+            const size = parseInt(req.query.size)
+            console.log('pagination Query', page, size)
+            const result = await jobCollection.find()
+
+                .skip(page * size)
+                .limit(size)
+                .toArray()
             res.send(result)
+
         })
+
+        // job Count
 
         app.get('/jobsCount', async (req, res) => {
             const count = await jobCollection.estimatedDocumentCount()
